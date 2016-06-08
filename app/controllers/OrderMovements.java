@@ -29,4 +29,21 @@ public class OrderMovements extends CRUD {
 		List<Object[]> movements = query.getResultList();
 		return movements;
 	}
+	
+	/**
+	 * @param item The item in the Order
+	 * @return a list of [Order, BigDecimal] where the Big Decimal is the not allocated quantity
+	 */
+	public static List<Object[]> getIncompleteOrders(Item item){
+		String queryStr = "SELECT o, o.quantity - sum(COALESCE(om.quantity, 0)) FROM " +
+		"OrderMovement as om RIGHT JOIN om.order as o " +
+		"WHERE o.item = " + item.id +
+		" GROUP BY o.id " +
+		"HAVING o.quantity > sum(COALESCE(om.quantity, 0)) " ;
+		
+		Query query = JPA.em().createQuery(queryStr);
+		
+		List<Object[]> movements = query.getResultList();
+		return movements;
+	}
 }
