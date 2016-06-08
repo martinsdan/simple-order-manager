@@ -21,4 +21,10 @@ public class OrderMovement extends Model {
 	
 	@Required
 	public BigDecimal quantity;
+	
+	public OrderMovement(Order order, StockMovement movement, BigDecimal quantity){
+		this.order = order;
+		this.movement = movement;
+		this.quantity = quantity;
+	}
 }
