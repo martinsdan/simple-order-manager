@@ -4,8 +4,7 @@ import java.lang.reflect.Constructor;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
+import notifiers.Mail;
 
 import models.Order;
 import models.OrderMovement;
@@ -59,8 +58,7 @@ public class Orders extends CRUD {
 			
 			BigDecimal qtyToAdd = missingQty.min(movAvailableQty);
 			
-			OrderMovement orderMov = new OrderMovement(order, mov, qtyToAdd);
-			orderMov.save();
+			order.addMovement(mov, qtyToAdd);
 			
 			missingQty = missingQty.subtract(qtyToAdd);
 		}

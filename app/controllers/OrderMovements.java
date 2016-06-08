@@ -5,13 +5,27 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import notifiers.Mail;
+
 import models.Item;
+import models.Order;
+import models.OrderMovement;
 import models.StockMovement;
 
 import play.db.jpa.JPA;
 import play.mvc.Controller;
 
 public class OrderMovements extends CRUD {
+	
+	public static BigDecimal getOrderAllocatedQuantity(Order order){
+		String queryStr = "SELECT COALESCE(sum(quantity), 0) FROM "+
+				"OrderMovement "+
+				"WHERE order = " + order.id;
+		Query query = JPA.em().createQuery(queryStr);
+		
+		List<BigDecimal> qty = query.getResultList();
+		return qty.get(0);
+	}
 	
 	/**
 	 * @param item The item in the Movement

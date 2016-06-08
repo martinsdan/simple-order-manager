@@ -14,6 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import notifiers.Mail;
+
+import controllers.OrderMovements;
+
 @Entity
 @Table(name="OrderTable")
 public class Order extends Model {
@@ -33,6 +37,24 @@ public class Order extends Model {
 	public User createdBy;
 	
 	public String toString() {
-	    return  item + " - " + quantity + " - " + creationDate;
+	    return item + " - " + quantity + " - " + creationDate;
+	}
+	
+	public BigDecimal allocatedQuantity(){
+		return OrderMovements.getOrderAllocatedQuantity(this);
+	}
+
+	public boolean isComplete() {
+		BigDecimal allocated = allocatedQuantity();
+		return allocated.compareTo(quantity) >= 0;
+	}
+	
+	public void addMovement(StockMovement movement, BigDecimal quantity){
+		OrderMovement orderMov = new OrderMovement(this, movement, quantity);
+		orderMov.save();
+		
+		if(isComplete()){
+			Mail.completedOrder(createdBy, this);
+		}
 	}
 }

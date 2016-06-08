@@ -54,8 +54,7 @@ public class StockMovements extends CRUD {
 			
 			BigDecimal qtyToAdd = missingQty.min(movAvailableQty);
 			
-			OrderMovement orderMov = new OrderMovement(order, mov, qtyToAdd);
-			orderMov.save();
+			order.addMovement(mov, qtyToAdd);
 			
 			missingQty = missingQty.subtract(qtyToAdd);
 		}
