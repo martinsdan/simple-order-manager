@@ -1,0 +1,5 @@
+Hi ${user.name},
+Your order "${order}" is completed.
+
+Best regards,
+Order example team
