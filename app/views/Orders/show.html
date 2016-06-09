@@ -10,7 +10,7 @@
     <div class="objectForm">
     #{form action:@save(object._key()), enctype:'multipart/form-data'}
         #{crud.form /}
-    	#{render 'Orders/statusDetails.html' , movements:object.getAllocatedMovements(), order:object /}
+    	#{render 'Orders/statusDetails.html' , movements:object.orderMovements, order:object /}
         <p class="crudButtons">
             <input type="submit" name="_save" value="&{'crud.save', type.modelName}" />
             <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />

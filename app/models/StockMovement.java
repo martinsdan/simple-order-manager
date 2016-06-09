@@ -7,8 +7,10 @@ import java.util.List;
 import play.data.validation.Required;
 import play.db.jpa.Model;
  
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import controllers.OrderMovements;
 
@@ -25,11 +27,10 @@ public class StockMovement extends Model {
 	@Required
 	public BigDecimal quantity;
 	
+	@OneToMany(mappedBy="movement", cascade=CascadeType.ALL,orphanRemoval=true)
+    public List<OrderMovement> orderMovements;
+	
 	public String toString() {
 	    return  item + " - " + quantity + " - " + creationDate;
-	}
-	
-	public List<OrderMovement> getAllocatedOrders(){
-		return OrderMovement.find("movement = ?", this).fetch();
 	}
 }

@@ -8,10 +8,12 @@ import java.util.Map;
 import play.data.validation.Required;
 import play.db.jpa.Model;
  
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import notifiers.Mail;
@@ -37,6 +39,9 @@ public class Order extends Model {
     @ManyToOne
 	public User createdBy;
 	
+	@OneToMany(mappedBy="order", cascade=CascadeType.ALL,orphanRemoval=true)
+    public List<OrderMovement> orderMovements;
+	
 	public String toString() {
 	    return item + " - " + quantity + " - " + creationDate;
 	}
@@ -57,9 +62,5 @@ public class Order extends Model {
 		if(isComplete()){
 			Mail.completedOrder(createdBy, this);
 		}
-	}
-	
-	public List<OrderMovement> getAllocatedMovements(){
-		return OrderMovement.find("order = ?", this).fetch();
 	}
 }
