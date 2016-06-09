@@ -29,26 +29,6 @@ public class OrderMovements extends CRUD {
 		return qty.get(0);
 	}
 	
-	public static List<OrderMovement> getOrderAllocatedMovements(Order order){
-		String queryStr = "SELECT om FROM "+
-				"OrderMovement om "+
-				"WHERE order = " + order.id;
-		Query query = JPA.em().createQuery(queryStr);
-		
-		List<OrderMovement> movements = query.getResultList();
-		return movements;
-	}
-
-	public static List<OrderMovement> getOrderAllocatedOrders(StockMovement movement) {
-		String queryStr = "SELECT om FROM "+
-				"OrderMovement om "+
-				"WHERE movement = " + movement.id;
-		Query query = JPA.em().createQuery(queryStr);
-		
-		List<OrderMovement> movements = query.getResultList();
-		return movements;
-	}
-	
 	/**
 	 * @param item The item in the Movement
 	 * @return a list of [StockMovement, BigDecimal] where the Big Decimal is the not allocated quantity

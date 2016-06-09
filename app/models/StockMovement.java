@@ -30,6 +30,6 @@ public class StockMovement extends Model {
 	}
 	
 	public List<OrderMovement> getAllocatedOrders(){
-		return OrderMovements.getOrderAllocatedOrders(this);
+		return OrderMovement.find("movement = ?", this).fetch();
 	}
 }

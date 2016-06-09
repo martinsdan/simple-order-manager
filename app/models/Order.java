@@ -60,6 +60,6 @@ public class Order extends Model {
 	}
 	
 	public List<OrderMovement> getAllocatedMovements(){
-		return OrderMovements.getOrderAllocatedMovements(this);
+		return OrderMovement.find("order = ?", this).fetch();
 	}
 }
