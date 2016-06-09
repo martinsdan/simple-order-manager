@@ -1,0 +1,10 @@
+    <div class="crudField crud_list">
+    	<label>
+        	Orders
+    	</label>
+    	 <ul>
+			#{list items:orders, as:'movement'}
+    		<li>${movement.order}</li>
+			#{/list}
+		</ul>
+    </div>

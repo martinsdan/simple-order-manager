@@ -1,0 +1,17 @@
+    <div class="crudField crud_list">
+    	<label>
+        	StockMovements
+    	</label>
+    	 <ul>
+			#{list items:movements, as:'movement'}
+    		<li>${movement.movement}</li>
+			#{/list}
+		</ul>
+    </div>
+    
+    <div class="crudField crud_number">
+    	<label>
+        	Completion
+    	</label>
+			${order.allocatedQuantity()}/${order.quantity}
+    </div>

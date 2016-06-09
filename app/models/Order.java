@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import notifiers.Mail;
 
 import controllers.OrderMovements;
+import controllers.CRUD.ObjectType;
 
 @Entity
 @Table(name="OrderTable")
@@ -56,5 +57,9 @@ public class Order extends Model {
 		if(isComplete()){
 			Mail.completedOrder(createdBy, this);
 		}
+	}
+	
+	public List<OrderMovement> getAllocatedMovements(){
+		return OrderMovements.getOrderAllocatedMovements(this);
 	}
 }

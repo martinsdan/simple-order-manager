@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import controllers.CRUD.ObjectType;
+
 import notifiers.Mail;
 
 import models.Item;
@@ -25,6 +27,26 @@ public class OrderMovements extends CRUD {
 		
 		List<BigDecimal> qty = query.getResultList();
 		return qty.get(0);
+	}
+	
+	public static List<OrderMovement> getOrderAllocatedMovements(Order order){
+		String queryStr = "SELECT om FROM "+
+				"OrderMovement om "+
+				"WHERE order = " + order.id;
+		Query query = JPA.em().createQuery(queryStr);
+		
+		List<OrderMovement> movements = query.getResultList();
+		return movements;
+	}
+
+	public static List<OrderMovement> getOrderAllocatedOrders(StockMovement movement) {
+		String queryStr = "SELECT om FROM "+
+				"OrderMovement om "+
+				"WHERE movement = " + movement.id;
+		Query query = JPA.em().createQuery(queryStr);
+		
+		List<OrderMovement> movements = query.getResultList();
+		return movements;
 	}
 	
 	/**
