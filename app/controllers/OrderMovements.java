@@ -5,19 +5,16 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import controllers.CRUD.ObjectType;
-
 import notifiers.Mail;
 
 import models.Item;
 import models.Order;
 import models.OrderMovement;
-import models.StockMovement;
 
 import play.db.jpa.JPA;
 import play.mvc.Controller;
 
-public class OrderMovements extends CRUD {
+public class OrderMovements extends Controller {
 	
 	public static BigDecimal getOrderAllocatedQuantity(Order order){
 		String queryStr = "SELECT COALESCE(sum(quantity), 0) FROM "+
