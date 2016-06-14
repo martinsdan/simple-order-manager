@@ -1,4 +1,7 @@
-    <div class="crudField crud_list">
+<script src="@{'/public/javascripts/completionDetails.js'}" 
+		type="text/javascript" charset="${_response_encoding}"></script>
+		
+    <div class="crudField crud_list status_details">
     	<label>
         	Orders
     	</label>
@@ -8,3 +11,5 @@
 			#{/list}
 		</ul>
     </div>
+
+    <button type="button" id="showButton" onclick="showHideDetails()">Show Less</button>

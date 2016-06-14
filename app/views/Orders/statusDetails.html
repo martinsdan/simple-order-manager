@@ -1,4 +1,7 @@
-    <div class="crudField crud_list">
+<script src="@{'/public/javascripts/completionDetails.js'}" 
+		type="text/javascript" charset="${_response_encoding}"></script>
+		
+    <div class="crudField crud_list status_details">
     	<label>
         	StockMovements
     	</label>
@@ -9,9 +12,11 @@
 		</ul>
     </div>
     
-    <div class="crudField crud_number">
+    <div class="crudField crud_number status_details">
     	<label>
         	Completion
     	</label>
 			${order.allocatedQuantity()}/${order.quantity}
     </div>
+
+    <button type="button" id="showButton" onclick="showHideDetails()">Show Less</button>
