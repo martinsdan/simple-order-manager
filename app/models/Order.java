@@ -64,4 +64,9 @@ public class Order extends Model {
 			Mail.completedOrder(createdBy, this);
 		}
 	}
+
+	public void clearMovements() {
+		refresh();
+		orderMovements.clear();
+	}
 }

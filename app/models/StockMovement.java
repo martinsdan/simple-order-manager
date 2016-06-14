@@ -9,6 +9,7 @@ import play.db.jpa.Model;
  
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -28,10 +29,16 @@ public class StockMovement extends Model {
 	@Required
 	public BigDecimal quantity;
 	
-	@OneToMany(mappedBy="movement", cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(mappedBy="movement", cascade=CascadeType.ALL,orphanRemoval=true,fetch=FetchType.EAGER)
     public List<OrderMovement> orderMovements;
 	
 	public String toString() {
 	    return  item + " - " + quantity + " - " + creationDate;
+	}
+
+	public void clearMovements() {
+		if(orderMovements!=null){
+			orderMovements.clear();
+		}
 	}
 }

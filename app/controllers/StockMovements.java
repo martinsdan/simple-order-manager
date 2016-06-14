@@ -13,7 +13,7 @@ import play.exceptions.TemplateNotFoundException;
 import controllers.CRUD.ObjectType;
 
 public class StockMovements extends CRUD {
-	public static void create(Object aa) throws Exception {
+	public static void create() throws Exception {
         StockMovement object = new StockMovement();
         Binder.bindBean(params.getRootParamNode(), "object", object);
         validation.valid(object);
@@ -33,6 +33,28 @@ public class StockMovements extends CRUD {
         }
         if (params.get("_saveAndAddAnother") != null) {
             redirect(request.controller + ".blank");
+        }
+        redirect(request.controller + ".show", object._key());
+    }
+	
+    public static void save(String id) throws Exception {
+        StockMovement object = StockMovement.findById(Long.valueOf(id));
+        Binder.bindBean(params.getRootParamNode(), "object", object);
+        validation.valid(object);
+        if (validation.hasErrors()) {
+            renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
+            try {
+                render(request.controller.replace(".", "/") + "/show.html", object);
+            } catch (TemplateNotFoundException e) {
+                render("CRUD/show.html", object);
+            }
+        }
+        object.clearMovements();
+        object._save();
+        addMovements(object);
+        flash.success(play.i18n.Messages.get("crud.saved", "StockMovement"));
+        if (params.get("_save") != null) {
+            redirect(request.controller + ".list");
         }
         redirect(request.controller + ".show", object._key());
     }

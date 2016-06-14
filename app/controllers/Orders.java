@@ -31,7 +31,7 @@ public class Orders extends CRUD {
 	         }
 	     }
 	     object._save();
-	     addMovements((Order) object);
+	     addMovements(object);
 	     flash.success(play.i18n.Messages.get("crud.created", "Order"));
 	     if (params.get("_save") != null) {
 	         redirect(request.controller + ".list");
@@ -41,6 +41,29 @@ public class Orders extends CRUD {
 	     }
 	     redirect(request.controller + ".show", object._key());
 	}
+	
+    public static void save(String id) throws Exception {
+    	Order object = Order.findById(Long.valueOf(id));
+		Binder.bindBean(params.getRootParamNode(), "object", object);
+		
+        validation.valid(object);
+        if (validation.hasErrors()) {
+            renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
+            try {
+                render(request.controller.replace(".", "/") + "/show.html", object);
+            } catch (TemplateNotFoundException e) {
+                render("CRUD/show.html", object);
+            }
+        }
+        object.clearMovements();
+        object._save();
+	    addMovements(object);
+        flash.success(play.i18n.Messages.get("crud.saved", "Order"));
+        if (params.get("_save") != null) {
+            redirect(request.controller + ".list");
+        }
+        redirect(request.controller + ".show", object._key());
+    }
 
 	private static void addMovements(Order order) {
 		List<Object[]> movements = OrderMovements.getIncompleteMovements(order.item);
