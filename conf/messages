@@ -1,3 +1,13 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+
+crud.title=Simple Order Management
+
+creationDate=Creation Date
+item=Item
+quantity=Quantity
+createdBy=Author
+StockMovements=Stock Movements
+name=Name
+email=Email
