@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import notifiers.Mail;
 
+import controllers.CRUD.Hidden;
 import controllers.OrderMovements;
 import controllers.CRUD.ObjectType;
 
@@ -39,6 +40,7 @@ public class Order extends Model {
     @ManyToOne
 	public User createdBy;
 	
+	@Hidden
 	@OneToMany(mappedBy="order", cascade=CascadeType.ALL,orphanRemoval=true)
     public List<OrderMovement> orderMovements;
 	

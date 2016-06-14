@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import controllers.OrderMovements;
+import controllers.CRUD.Hidden;
 
 @Entity
 public class StockMovement extends Model {
@@ -27,6 +28,7 @@ public class StockMovement extends Model {
 	@Required
 	public BigDecimal quantity;
 	
+	@Hidden
 	@OneToMany(mappedBy="movement", cascade=CascadeType.ALL,orphanRemoval=true)
     public List<OrderMovement> orderMovements;
 	
