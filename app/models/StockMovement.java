@@ -28,7 +28,6 @@ public class StockMovement extends Model {
 	@Required
 	public BigDecimal quantity;
 	
-	@Hidden
 	@OneToMany(mappedBy="movement", cascade=CascadeType.ALL,orphanRemoval=true)
     public List<OrderMovement> orderMovements;
 	

@@ -40,7 +40,6 @@ public class Order extends Model {
     @ManyToOne
 	public User createdBy;
 	
-	@Hidden
 	@OneToMany(mappedBy="order", cascade=CascadeType.ALL,orphanRemoval=true)
     public List<OrderMovement> orderMovements;
 	
