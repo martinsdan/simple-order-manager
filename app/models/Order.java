@@ -66,7 +66,6 @@ public class Order extends Model {
 	}
 
 	public void clearMovements() {
-		refresh();
 		orderMovements.clear();
 	}
 }

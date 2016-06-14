@@ -29,7 +29,7 @@ public class StockMovement extends Model {
 	@Required
 	public BigDecimal quantity;
 	
-	@OneToMany(mappedBy="movement", cascade=CascadeType.ALL,orphanRemoval=true,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="movement", cascade=CascadeType.ALL,orphanRemoval=true)
     public List<OrderMovement> orderMovements;
 	
 	public String toString() {
